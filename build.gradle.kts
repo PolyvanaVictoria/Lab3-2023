@@ -40,8 +40,7 @@ dependencies {
     // Jackson
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
-
-    implementation 'javax.persistence:persistence-api:1.0.2'
+    
     testImplementation(kotlin("test"))
 }
 
