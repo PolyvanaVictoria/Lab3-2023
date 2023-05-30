@@ -37,13 +37,11 @@ private val servletContextHandler: ServletContextHandler
     get() {
         val webAppContext = webApplicationContext
         val dispatcherServlet = DispatcherServlet(webAppContext)
-        val filter = DelegatingFilterProxy("springSecurityFilterChain", webAppContext)
         val springServletHolder = ServletHolder("dispatcherServlet", dispatcherServlet)
         return ServletContextHandler(ServletContextHandler.SESSIONS).apply {
             errorHandler = null
             contextPath = "/"
             addServlet(springServletHolder, "/*")
-            addFilter(FilterHolder(filter), "/*", EnumSet.of(DispatcherType.REQUEST))
             addEventListener(ContextLoaderListener(webAppContext))
         }
     }
