@@ -20,7 +20,7 @@ interface MedicineRepository {
     fun update(medicine: Medicine)
     fun delete(medicine: Medicine)
     abstract fun save(medicine: Int): Medicine
-    abstract fun deleteById(medicineId: Long)
+    abstract fun deleteById(medicineId: Int)
 }
 @Repository
 class JpaHospitalRepository(private val entityManager: EntityManager) : HospitalRepository {
