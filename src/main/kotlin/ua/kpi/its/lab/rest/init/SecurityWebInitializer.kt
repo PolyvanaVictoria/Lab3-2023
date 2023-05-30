@@ -4,7 +4,7 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 import ua.kpi.its.lab.rest.config.RootConfig
 import ua.kpi.its.lab.rest.config.WebConfig
 
-class WebInitializer : AbstractSecurityWebApplicationInitializer() {
+class SecurityWebInitializer : AbstractSecurityWebApplicationInitializer() {
     fun getServletMappings(): Array<String> = arrayOf("/")
 
     fun getRootConfigClasses(): Array<Class<*>> = arrayOf(RootConfig::class.java)
