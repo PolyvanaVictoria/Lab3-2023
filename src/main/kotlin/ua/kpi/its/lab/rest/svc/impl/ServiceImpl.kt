@@ -1,9 +1,7 @@
 package ua.kpi.its.lab.rest.svc.impl
 
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Service
-import ua.kpi.its.lab.rest.dto.HospitalRequest
-import ua.kpi.its.lab.rest.dto.HospitalResponse
-import ua.kpi.its.lab.rest.dto.MedicineRequest
 import ua.kpi.its.lab.rest.entity.Hospital
 import ua.kpi.its.lab.rest.entity.Medicine
 import ua.kpi.its.lab.rest.svc.HospitalRepository
@@ -11,33 +9,42 @@ import ua.kpi.its.lab.rest.svc.MedicineRepository
 
 @Service
 abstract class HospitalService(private val hospitalRepository: HospitalRepository) {
-    fun createHospital(hospital: HospitalRequest) {
-        hospitalRepository.create(hospital)
-    }
-    abstract fun updateHospital(id: Int, request: HospitalRequest): HospitalResponse
-    abstract fun deleteHospital(id: Int)
-
-    fun getHospital(id: Int): Hospital? {
-        return hospitalRepository.read(id)
+    @PreAuthorize("hasRole('EDITOR')")
+    fun createHospital(hospital: Hospital) {
     }
 
+    @PreAuthorize("hasRole('EDITOR')")
+    fun updateHospital(hospital: Hospital) {
+    }
+
+    @PreAuthorize("hasAnyRole('VIEWER', 'EDITOR')")
+    fun getHospitalByName(id: Long): HospitalRepository {
+        return hospitalRepository
+    }
+
+    @PreAuthorize("hasAnyRole('VIEWER', 'EDITOR')")
+    fun getAllHospitals(): HospitalRepository {
+        return hospitalRepository
+    }
 }
 
 @Service
 class MedicineService(private val medicineRepository: MedicineRepository) {
-    fun createMedicine(medicine: MedicineRequest) {
-        medicineRepository.create(medicine)
-    }
-    fun updateMedicine(medicine: Int, request: MedicineRequest): Medicine {
-
-        return medicineRepository.save(medicine)
-    }
-    fun deleteMedicine(medicineId: Int) {
-        medicineRepository.deleteById(medicineId)
+    @PreAuthorize("hasRole('EDITOR')")
+    fun createMedicine(medicine: Medicine) {
     }
 
-    fun getMedicine(id: Int): Medicine? {
-        return medicineRepository.read(id)
+    @PreAuthorize("hasRole('EDITOR')")
+    fun updateMedicine(medicine: Medicine) {
     }
 
+    @PreAuthorize("hasAnyRole('VIEWER', 'EDITOR')")
+    fun getMedicineById(id: Long): MedicineRepository {
+        return medicineRepository
+    }
+
+    @PreAuthorize("hasAnyRole('VIEWER', 'EDITOR')")
+    fun getAllMedicine(): MedicineRepository {
+        return medicineRepository
+    }
 }
