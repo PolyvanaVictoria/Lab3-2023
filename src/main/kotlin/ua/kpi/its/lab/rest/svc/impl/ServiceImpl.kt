@@ -28,6 +28,7 @@ abstract class HospitalService(private val hospitalRepository: HospitalRepositor
     }
 }
 
+
 @Service
 class MedicineService(private val medicineRepository: MedicineRepository) {
     @PreAuthorize("hasRole('EDITOR')")
